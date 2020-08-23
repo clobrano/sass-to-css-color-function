@@ -1,0 +1,32 @@
+
+$color: orange;
+$amount: 0.1;
+
+// replacements for scss "lighten" function
+@function gtkmix($color, $color2, $amount) {
+    @return unquote("mix(#{$color}, #{$color2}, #{$amount})");
+}
+
+@function gtkshade($color, $alpha) {
+  $var: 1+$alpha - 0.1;
+  @return unquote("shade(#{$color}, #{$var})");
+}
+// --- end:lighten ---
+
+label.expected, label.actual {
+    border: 2px solid white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+label.expected {
+    background-color: lighten($color, $amount);
+    border: 10px solid $color;
+}
+
+label.actual {
+    //background-color: gtkmix($color, white, $amount); // different
+    background-color: gtkshade($color, $amount);
+    border: 10px solid $color;
+}
