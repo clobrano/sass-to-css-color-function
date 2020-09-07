@@ -14,9 +14,9 @@ $color-lum: 50%;
 
 // The amount of variation is some times different
 // in different functions (e.g. lightness wants %, mix wants fractions)
-$amount-sass: 20%;
-$amount-hsl: $color-lum + 20;
-$amount-css: 0.2;
+$amount-sass: 15%;
+$amount-hsl: $color-lum + 15;
+$amount-css: 0.3;
 
 
 // Mapping sassc to css
