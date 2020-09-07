@@ -24,11 +24,17 @@ class MyWindow(Gtk.Window):
         self.expected_color_lbl.set_label("expected");
         self.box.pack_start(self.expected_color_lbl, True, True, 0)
 
-        self.actual_color_lbl = Gtk.Label()
-        self.actual_color_lbl.set_label("actual");
-        context = self.actual_color_lbl.get_style_context()
-        context.add_class("actual");
-        self.box.pack_start(self.actual_color_lbl, True, True, 0)
+        self.hsl_lbl = Gtk.Label()
+        self.hsl_lbl.set_label("HSL");
+        context = self.hsl_lbl.get_style_context()
+        context.add_class("hsl");
+        self.box.pack_start(self.hsl_lbl, True, True, 0)
+
+        self.css_color_lbl = Gtk.Label()
+        self.css_color_lbl.set_label("CSS");
+        context = self.css_color_lbl.get_style_context()
+        context.add_class("css");
+        self.box.pack_start(self.css_color_lbl, True, True, 0)
 
 
 def main(argv):
