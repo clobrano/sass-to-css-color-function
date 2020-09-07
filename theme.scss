@@ -1,20 +1,32 @@
+// The public colour as variable
+@define-color public-color #{hsl(30, 100%, 50%)};
 
-$color: orange;
-$amount: 0.1;
+// The colors, included the public one, as sass variables.
+// public-colour derives from the variable one and needs
+// unquote function to appear as it is in sass
+$color: hsl(30, 100%, 50%);
+$public-color: unquote("@public-color");
+$amount: 20%;
 
-// replacements for scss "lighten" function
-@function gtkmix($color, $color2, $amount) {
-    @return unquote("mix(#{$color}, #{$color2}, #{$amount})");
+
+
+// Mapping sassc to css
+@function _($content) {
+    @return unquote("#{$content}");
+}
+@function gtkmix($color1, $color2, $amount) {
+    @return unquote("mix(#{$color1}, #{$color2}, #{$amount})");
+}
+@function lightness($color, $amount) {
+    @return gtkmix($color, white, $amount);
 }
 
-@function gtkshade($color, $alpha) {
-  $var: 1+$alpha - 0.1;
-  @return unquote("shade(#{$color}, #{$var})");
-}
-// --- end:lighten ---
 
+// Define two labels:
+// Expected is the label colored with sass functions
+// Actual is the label colored with CSS functions
 label.expected, label.actual {
-    border: 2px solid white;
+    border: 2px solid $color;
     margin: 20px;
     padding: 20px;
     border-radius: 5px;
