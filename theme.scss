@@ -4,10 +4,19 @@
 // The colors, included the public one, as sass variables.
 // public-colour derives from the variable one and needs
 // unquote function to appear as it is in sass
-$color: hsl(30, 100%, 50%);
 $public-color: unquote("@public-color");
-$amount: 20%;
 
+// sass color defined in HSL to simplify variations
+$color: hsl(30, 100%, 50%);
+$color-hue: 30;
+$color-sat: 100%;
+$color-lum: 50%;
+
+// The amount of variation is some times different
+// in different functions (e.g. lightness wants %, mix wants fractions)
+$amount-sass: 20%;
+$amount-hsl: $color-lum + 20;
+$amount-css: 0.2;
 
 
 // Mapping sassc to css
@@ -24,8 +33,11 @@ $amount: 20%;
 
 // Define two labels:
 // Expected is the label colored with sass functions
-// Actual is the label colored with CSS functions
-label.expected, label.actual {
+// css is the label colored with CSS functions
+label.expected,
+label.css,
+label.hsl
+{
     border: 2px solid $color;
     margin: 20px;
     padding: 20px;
@@ -33,12 +45,19 @@ label.expected, label.actual {
 }
 
 label.expected {
-    background-color: lighten($color, $amount);
+    background-color: lighten($color, $amount-sass);
     border: 10px solid $color;
 }
 
-label.actual {
-    //background-color: gtkmix($color, white, $amount); // different
-    background-color: gtkshade($color, $amount);
+label.css {
+    background-color: lightness($public-color, $amount-css);
+    border: 10px solid $public-color;
+}
+
+// Using HSL reference, because this is what is the most
+// suggested way to tweak colors in CSS.
+label.hsl {
+    background-color: hsl(30, 100%, $amount-hsl);
     border: 10px solid $color;
 }
+
