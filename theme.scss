@@ -1,5 +1,8 @@
 // The public colour as variable
-@define-color public-color #{hsl(30, 100%, 50%)};
+$hue: 30;
+$sat: 100%;
+$lum: 50%;
+@define-color public-color #{hsl($hue, $sat, $lum)};
 
 // The colors, included the public one, as sass variables.
 // public-colour derives from the variable one and needs
@@ -7,15 +10,12 @@
 $public-color: unquote("@public-color");
 
 // sass color defined in HSL to simplify variations
-$color: hsl(30, 100%, 50%);
-$color-hue: 30;
-$color-sat: 100%;
-$color-lum: 50%;
+$color: hsl($hue, $sat, $lum);
 
 // The amount of variation is some times different
 // in different functions (e.g. lightness wants %, mix wants fractions)
 $amount-sass: 20%;
-$amount-hsl: $color-lum + 20;
+$amount-hsl: $lum + 20;
 $amount-css: 0.2;
 
 
@@ -27,7 +27,7 @@ $amount-css: 0.2;
     @return unquote("mix(#{$color1}, #{$color2}, #{$amount})");
 }
 @function lightness($color, $amount) {
-    @return gtkmix($color, white, $amount);
+    @return gtkmix($color, white, $amount * 2);
 }
 
 
@@ -57,7 +57,7 @@ label.css {
 // Using HSL reference, because this is what is the most
 // suggested way to tweak colors in CSS.
 label.hsl {
-    background-color: hsl(30, 100%, $amount-hsl);
+    background-color: hsl($hue, $sat, $amount-hsl);
     border: 10px solid $color;
 }
 
