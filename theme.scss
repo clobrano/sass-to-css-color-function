@@ -15,7 +15,7 @@ $color: hsl($hue, $sat, $lum);
 // The amount of variation is some times different
 // in different functions (e.g. lightness wants %, mix wants fractions)
 $amount-sass: 20%;
-$amount-hsl: $lum + 20;
+$amount-hsl: $lum - 20;
 $amount-css: 0.2;
 
 
@@ -29,7 +29,9 @@ $amount-css: 0.2;
 @function lightness($color, $amount) {
     @return gtkmix($color, white, $amount * 2);
 }
-
+@function darkness($color, $amount) {
+    @return gtkmix($color, black, $amount * 2);
+}
 
 // Define two labels:
 // Expected is the label colored with sass functions
@@ -45,12 +47,12 @@ label.hsl
 }
 
 label.expected {
-    background-color: lighten($color, $amount-sass);
+    background-color: darken($color, $amount-sass);
     border: 10px solid $color;
 }
 
 label.css {
-    background-color: lightness($public-color, $amount-css);
+    background-color: darkness($public-color, $amount-css);
     border: 10px solid $public-color;
 }
 
